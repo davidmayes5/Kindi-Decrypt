@@ -6,6 +6,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -66,7 +67,15 @@ public class Window extends Application{
         continueButton.setOnAction(new EventHandler<ActionEvent>(){
         	@Override
         	public void handle(ActionEvent event){
-        		System.out.println(inputField.getParagraphs());
+        		String ciphertext = inputField.getParagraphs().toString();
+        		ciphertext = ciphertext.substring(1, ciphertext.length() - 1);
+        		LetterWidget[] letterWidgetArray = new LetterWidget[ciphertext.length()];
+        		for(int i = 0; i < ciphertext.length(); i++){
+        			letterWidgetArray[i] = new LetterWidget(String.valueOf(ciphertext.charAt(i)), " ");
+        		}
+        		Paragraph paragraph = new Paragraph(letterWidgetArray);
+        		centerGrid.getChildren().clear();
+        		centerGrid.add(paragraph, 0, 0);
         	}
         });
         bottomGrid.setAlignment(Pos.BOTTOM_RIGHT);
