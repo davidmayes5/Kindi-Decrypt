@@ -39,7 +39,8 @@ public class ButtonClickEvent implements EventHandler<ActionEvent>{
 				ciphertext = ciphertext.substring(1, ciphertext.length() - 1);
 				LetterWidget[] letterWidgetArray = new LetterWidget[ciphertext.length()];
 				for (int i = 0; i < ciphertext.length(); i++) {
-					letterWidgetArray[i] = new LetterWidget(String.valueOf(ciphertext.charAt(i)),
+					letterWidgetArray[i] = new LetterWidget(
+							new LetterButton(String.valueOf(ciphertext.charAt(i))),
 							" ");
 				}
 				_pane.getChildren().clear();

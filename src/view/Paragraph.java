@@ -2,22 +2,22 @@ package view;
 
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public class Paragraph extends FlowPane{
 	
-	VBox[] _letterWidgetArray;
+	LetterWidget[] _letterWidgetArray;
 
-	public Paragraph(VBox[] letterWidgetArray, Pane pane) {
+	public Paragraph(LetterWidget[] letterWidgetArray, Pane pane) {
 		this.setMinWidth(pane.getWidth() - (2 * Window.PADDING));
-		for(VBox letterWidget : letterWidgetArray){
+		for (LetterWidget letterWidget : letterWidgetArray) {
 			this.getChildren().addAll(letterWidget);
+			letterWidget.getButton().setOnAction(new LetterClickEvent(this, letterWidget));
 		}
 
 		_letterWidgetArray = letterWidgetArray;
 	}
 
-	public VBox[] getLetterWidgetArray() {
+	public LetterWidget[] getLetterWidgetArray() {
 		return _letterWidgetArray;
 	}
 
