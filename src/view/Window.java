@@ -1,34 +1,26 @@
 package view;
 
-import javafx.scene.control.TextArea;
-import javafx.scene.text.Text;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-
 import javafx.application.Application;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Window extends Application{
 	
 	private int _width;
 	private int _height;
-	private int _padding;
+	public static int PADDING;
 	
 	public Window(){
 		_width = 800;
 		_height = 600;
-		_padding = 25;
+		PADDING = 25;
 	}
 
 	public static void main(String[] args){
@@ -48,9 +40,9 @@ public class Window extends Application{
         topGrid.setMinSize(_width, 10);
         centerGrid.setMaxSize(_width, _height/2);
         bottomGrid.setMinSize(_width, 10);
-        topGrid.setPadding(new Insets(_padding, _padding, _padding, _padding));
-        centerGrid.setPadding(new Insets(_padding, _padding, _padding, _padding));
-        bottomGrid.setPadding(new Insets(_padding, _padding, _padding, _padding));
+		topGrid.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
+		centerGrid.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
+		bottomGrid.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
         
         // title message
         Text initMessage = new Text("Please enter the ciphertext:");
@@ -59,27 +51,16 @@ public class Window extends Application{
         
         // user input area for ciphertext
         TextArea inputField = new TextArea();
-        inputField.setMinSize(_width - (2*_padding), _height/2);
+		inputField.setMinSize(_width - (2 * PADDING), _height / 2);
         centerGrid.add(inputField, 0, 0);
         
         // button to format the ciphertext for user manipulation (i.e. decryption)
-        Button continueButton = new Button("Continue");
-        continueButton.setOnAction(new EventHandler<ActionEvent>(){
-        	@Override
-        	public void handle(ActionEvent event){
-        		String ciphertext = inputField.getParagraphs().toString();
-        		ciphertext = ciphertext.substring(1, ciphertext.length() - 1);
-        		LetterWidget[] letterWidgetArray = new LetterWidget[ciphertext.length()];
-        		for(int i = 0; i < ciphertext.length(); i++){
-        			letterWidgetArray[i] = new LetterWidget(String.valueOf(ciphertext.charAt(i)), " ");
-        		}
-        		Paragraph paragraph = new Paragraph(letterWidgetArray);
-        		centerGrid.getChildren().clear();
-        		centerGrid.add(paragraph, 0, 0);
-        	}
-        });
+		Button formatButton = new Button("Format");
+		formatButton.setId("populate");
+		formatButton.setOnAction(
+				new ButtonClickEvent(inputField, centerGrid, bottomGrid));
         bottomGrid.setAlignment(Pos.BOTTOM_RIGHT);
-        bottomGrid.add(continueButton, 0, 0);
+		bottomGrid.add(formatButton, 0, 0);
         
         pane.setTop(topGrid);
         pane.setCenter(centerGrid);
@@ -89,4 +70,16 @@ public class Window extends Application{
         window.setScene(scene);
         window.show();
     }
+
+	public int getWidth() {
+		return _width;
+	}
+
+	public int getHeight() {
+		return _height;
+	}
+
+	public int getPadding() {
+		return PADDING;
+	}
 }
