@@ -58,7 +58,7 @@ public class Window extends Application{
 		Button formatButton = new Button("Format");
 		formatButton.setId("populate");
 		formatButton.setOnAction(
-				new ButtonClickEvent(inputField, centerGrid, bottomGrid));
+				new ButtonClickEvent(inputField, centerGrid, bottomGrid, topGrid));
         bottomGrid.setAlignment(Pos.BOTTOM_RIGHT);
 		bottomGrid.add(formatButton, 0, 0);
         

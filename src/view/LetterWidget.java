@@ -8,7 +8,8 @@ public class LetterWidget extends VBox{
 	String _letter;
 
 	public LetterWidget(String cipherLetter, String plaintextLetter){
-		super(new Button(cipherLetter), new Text(plaintextLetter), new Text(" "));
+		super(cipherLetter.equals(" ") ? new Text("     ") : new Button(cipherLetter),
+				new Text(plaintextLetter), new Text(" "));
 		_letter = cipherLetter;
 	}
 	
