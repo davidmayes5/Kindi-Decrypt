@@ -5,9 +5,19 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -18,8 +28,8 @@ public class Window extends Application{
 	public static int PADDING;
 	
 	public Window(){
-		_width = 800;
-		_height = 600;
+		_width = 1600;
+		_height = 900;
 		PADDING = 25;
 	}
 
@@ -29,10 +39,22 @@ public class Window extends Application{
 	
 	@Override
     public void start(Stage window) {
+		// Title of the window
         window.setTitle("Kindi Decrypt");
         
+		// Menu bar stuff
+		MenuBar menuBar = new MenuBar();
+
+		Menu options = new Menu("Options");
+		menuBar.getMenus().addAll(options);
+
+		MenuItem countDigraphs = new MenuItem("Count Digraphs");
+		options.getItems().addAll(countDigraphs);
+
+		// Interior window stuff
         BorderPane pane = new BorderPane();
-        pane.setMinSize(_width, _height);
+		pane.setMinSize(_width, _height - 100);
+		pane.setMaxSize(_width, _height - 50);
         
         GridPane topGrid = new GridPane();
         GridPane centerGrid = new GridPane();
@@ -66,7 +88,17 @@ public class Window extends Application{
         pane.setCenter(centerGrid);
         pane.setBottom(bottomGrid);
         
-        Scene scene = new Scene(pane, _width, _height);
+		// Create the background image
+		BackgroundImage backgroundImage = new BackgroundImage(
+				new Image("Images/Kindi_Decrypt_Background.png", 1600, 900, false, true),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+				BackgroundSize.DEFAULT);
+
+		// Format all this previous stuff into a nice, pretty window
+		VBox sceneVBox = new VBox();
+		sceneVBox.setBackground(new Background(backgroundImage));
+		sceneVBox.getChildren().addAll(menuBar, pane);
+		Scene scene = new Scene(sceneVBox, _width, _height);
         window.setScene(scene);
         window.show();
     }

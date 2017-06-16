@@ -11,7 +11,7 @@ public class LetterWidget extends VBox{
 	public LetterWidget(LetterButton button, String plaintextLetter) {
 		super(button.getLetter().equals(" ") ? new Text("     ")
 				: button,
-				new Text(plaintextLetter), new Text(" "));
+				new Text(" " + plaintextLetter + " "), new Text(" "));
 		_letter = button.getLetter();
 		_button = button;
 	}

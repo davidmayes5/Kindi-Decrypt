@@ -21,7 +21,7 @@ public class KeyPressEvent implements EventHandler<KeyEvent> {
 		for (LetterWidget letterWidget : letterWidgetArray) {
 			if (letterWidget.getLetter().equals(_letterWidget.getLetter())) {
 				letterWidget.getChildren().remove(1);
-				letterWidget.getChildren().add(1, new Text(input));
+				letterWidget.getChildren().add(1, new Text("   " + input));
 			}
 		}
 	}
